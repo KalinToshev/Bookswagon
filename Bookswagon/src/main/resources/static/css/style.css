@@ -1,0 +1,19 @@
+body {
+    background-image: url(/images/background.png);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    min-height: 100vh;
+}
+
+nav {
+    background-color: rgba(255, 255, 255, 0.233);
+}
+
+#footer-container {
+    background-color: rgba(255, 255, 255, 0.384);
+}
+
+#form-container {
+    background-color: rgba(0, 0, 0, 0.425);
+}
