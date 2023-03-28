@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+  <th:block sec:authorize="isAnonymous()">
+    <nav th:replace="/fragments/commons::nav#guest-nav"></nav>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
+  </th:block>
+  <div class="container min-vh-100 text-white d-flex justify-content-center flex-column align-items-center pt-3 pb-3">
+    <h1>Add new book</h1>
+    <hr class="my-3 bg-white w-100">
+    <form class="p-4 rounded" id="form-container" th:action="@{/books/add}" th:method="post" th:object="${addNewBookEntityDto}" autocomplete="off">
+      <div class="d-flex flex-column mb-3">
+        <label for="title" class="form-label">
+          Title:
+        </label>
+        <input type="text" name="title" id="title" class="form-control" th:field="*{title}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('title')}" th:errors="*{title}" class="text-danger"></small>
+<!--        <p id="firstNameError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="author" class="form-label">
+          Author:
+        </label>
+        <input type="text" name="author" id="author" class="form-control" th:field="*{author}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="text-danger"></small>
+<!--        <p id="lastNameError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="description" class="form-label">
+          Description:
+        </label>
+        <textarea name="description" id="description" class="form-control" th:field="*{description}" th:errorclass="bg-danger"></textarea>
+        <small th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></small>
+<!--        <p id="usernameError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="publisher" class="form-label">
+          Publisher:
+        </label>
+        <input type="text" name="publisher" id="publisher" class="form-control" th:field="*{publisher}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="text-danger"></small>
+<!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="publishDate" class="form-label">
+          Publish date:
+        </label>
+        <input type="date" name="publish_date" id="publishDate" class="form-control" th:field="*{publish_date}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('publish_date')}" th:errors="*{publish_date}" class="text-danger"></small>
+        <!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="isbn" class="form-label">
+          ISBN:
+        </label>
+        <input type="text" name="isbn" id="isbn" class="form-control" th:field="*{isbn}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}" class="text-danger"></small>
+        <!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="language" class="form-label">
+          Language:
+        </label>
+        <input type="text" name="language" id="language" class="form-control" th:field="*{language}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('language')}" th:errors="*{language}" class="text-danger"></small>
+        <!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="pages" class="form-label">
+          Pages:
+        </label>
+        <input type="text" name="pages" id="pages" class="form-control" th:field="*{pages}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('pages')}" th:errors="*{pages}" class="text-danger"></small>
+        <!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <div class="d-flex flex-column mb-3">
+        <label for="bookImageUrl" class="form-label">
+          Book Image URL:
+        </label>
+        <input type="text" name="bookImageUrl" id="bookImageUrl" class="form-control" th:field="*{bookImageUrl}" th:errorclass="bg-danger">
+        <small th:if="${#fields.hasErrors('bookImageUrl')}" th:errors="*{bookImageUrl}" class="text-danger"></small>
+        <!--        <p id="emailError" class="text-danger"></p>-->
+      </div>
+      <input type="submit" value="ADD BOOK" class="btn btn-primary w-100">
+    </form>
+  </div>
+  <footer th:replace="/fragments/commons::footer"></footer>
+  <script src="/js/formWidthControl.js"></script>
+</body>
+</html>
