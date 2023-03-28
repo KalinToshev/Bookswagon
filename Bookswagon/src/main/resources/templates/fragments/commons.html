@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" >
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -38,8 +38,17 @@
             <div class="collapse navbar-collapse" id="mynavbar">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item">
-                        <form th:action="@{/users/logout}" th:method="post">
-                            <button class="text-white border-0 bg-transparent">Logout</button>
+                        <a class="nav-link text-white pe-3" href="#">Saved books</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-white pe-3" href="#">Profile</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMINISTRATOR')">
+                        <a class="nav-link text-white pe-3" href="#">Add book</a>
+                    </li>
+                    <li class="nav-item d-flex justify-content-center align-items-center">
+                        <form th:action="@{/users/logout}" th:method="post" class="w-100">
+                            <button class="text-white border-0 bg-transparent ps-0">Logout</button>
                         </form>
                     </li>
                 </ul>

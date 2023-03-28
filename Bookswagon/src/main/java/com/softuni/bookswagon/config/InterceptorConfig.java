@@ -1,6 +1,6 @@
 package com.softuni.bookswagon.config;
 
-import com.softuni.bookswagon.web.LoggerInterceptor;
+import com.softuni.bookswagon.interceptor.LoggerInterceptor;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
