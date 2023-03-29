@@ -8,7 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static com.softuni.bookswagon.util.ValidationMessages.*;
+import static com.softuni.bookswagon.util.UserValidationMessages.*;
 
 @Getter
 @Setter

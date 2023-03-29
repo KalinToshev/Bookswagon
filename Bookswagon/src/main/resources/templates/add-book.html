@@ -37,14 +37,6 @@
 <!--        <p id="usernameError" class="text-danger"></p>-->
       </div>
       <div class="d-flex flex-column mb-3">
-        <label for="publisher" class="form-label">
-          Publisher:
-        </label>
-        <input type="text" name="publisher" id="publisher" class="form-control" th:field="*{publisher}" th:errorclass="bg-danger">
-        <small th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="text-danger"></small>
-<!--        <p id="emailError" class="text-danger"></p>-->
-      </div>
-      <div class="d-flex flex-column mb-3">
         <label for="publishDate" class="form-label">
           Publish date:
         </label>
