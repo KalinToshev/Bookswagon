@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+  <th:block sec:authorize="isAnonymous()">
+    <nav th:replace="/fragments/commons::nav#guest-nav"></nav>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
+  </th:block>
+  <div class="container pt-3 pb-3 min-vh-100 text-white">
+    <h1 class="text-center">Administrator panel.</h1>
+    <hr class="my-3 bg-white w-100">
+    <div id="administrator-panel">
+      <h2>Users table</h2>
+      
+    </div>
+  </div>
+  </div>
+  <footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

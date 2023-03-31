@@ -1,6 +1,7 @@
 package com.softuni.bookswagon.service.user;
 
 import com.softuni.bookswagon.model.dto.RegisterUserEntityDTO;
+import com.softuni.bookswagon.model.dto.UserProfileDetailsDTO;
 import com.softuni.bookswagon.model.entity.RoleEntity;
 import com.softuni.bookswagon.model.entity.UserEntity;
 import com.softuni.bookswagon.model.enums.RolesEnum;
@@ -54,5 +55,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserEntity getUserEntityByUsername(String username) {
         return this.userRepository.findUserEntityByUsername(username).orElseThrow(() -> new UsernameNotFoundException("User with this username was not found!"));
+    }
+
+    @Override
+    public UserProfileDetailsDTO mapUserEntityToUserProfileDetailsDTO(UserEntity userEntity, UserProfileDetailsDTO userProfileDetailsDTO) {
+        modelMapper.map(userEntity, userProfileDetailsDTO);
+
+        return userProfileDetailsDTO;
     }
 }

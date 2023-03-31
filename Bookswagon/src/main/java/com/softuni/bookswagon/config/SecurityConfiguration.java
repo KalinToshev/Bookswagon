@@ -15,7 +15,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
-                .requestMatchers("/users/register", "/users/login", "/").permitAll()
+                .requestMatchers("/users/register", "/users/login", "/", "/api/books").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

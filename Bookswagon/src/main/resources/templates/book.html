@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+  <th:block sec:authorize="isAnonymous()">
+    <nav th:replace="/fragments/commons::nav#guest-nav"></nav>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
+  </th:block>
+  <div class="container pt-3 pb-3 min-vh-100 text-white" th:object="${fullBookInfoDTO}">
+    <h1 class="text-center">Book Info.</h1>
+    <hr class="my-3 bg-white w-100">
+    <div id="book-details" class="d-flex justify-content-center align-items-center flex-column">
+      <img th:src="*{bookImageUrl}" alt="" width="250" height="250">
+      <h3 th:text="*{title}">Title</h3>
+      <h4 th:text="*{author}">Author</h4>
+      <p>Description: <span th:text="*{description}"></span></p>
+      <p>ISBN: <span th:text="*{isbn}"></span></p>
+      <p>Language: <span th:text="*{language}"></span></p>
+      <p>Pages count: <span th:text="*{pages}"></span></p>
+      <p>Publish date: <span th:text="*{publish_date}"></span></p>
+    </div>
+  </div>
+  <footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

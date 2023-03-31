@@ -41,10 +41,13 @@
                         <a class="nav-link text-white pe-3" href="#">Saved books</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-white pe-3" href="#">Profile</a>
+                        <a class="nav-link text-white pe-3" th:href="@{/user/profile}">Profile</a>
                     </li>
                     <li class="nav-item" sec:authorize="hasRole('ADMINISTRATOR')">
                         <a class="nav-link text-white pe-3" th:href="@{/books/add}">Add book</a>
+                    </li>
+                    <li class="nav-item" sec:authorize="hasRole('ADMINISTRATOR')">
+                        <a class="nav-link text-white pe-3" th:href="@{/administrator/panel}">Administrator panel</a>
                     </li>
                     <li class="nav-item d-flex justify-content-center align-items-center">
                         <form th:action="@{/users/logout}" th:method="post" class="w-100">
