@@ -9,13 +9,72 @@
     <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
   </th:block>
   <div class="container pt-3 pb-3 min-vh-100 text-white">
-    <h1 class="text-center">Administrator panel.</h1>
+    <h1 class="text-center">Administrator control panel.</h1>
     <hr class="my-3 bg-white w-100">
     <div id="administrator-panel">
-      <h2>Users table</h2>
-      
+      <h2 class="text-uppercase">Users Table</h2>
+      <table class="table text-white">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>First name</th>
+          <th>Last name</th>
+          <th>Username</th>
+          <th>Email</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+          <td th:text="${user.id}"></td>
+          <td th:text="${user.firstName}"></td>
+          <td th:text="${user.lastName}"></td>
+          <td th:text="${user.username}"></td>
+          <td th:text="${user.email}"></td>
+          <td>
+            <form th:action="@{/administrator/user/delete}" method="post">
+              <input type="hidden" name="id" th:value="${user.id}"/>
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+
+      <h2 class="text-uppercase mt-5">Books Table</h2>
+      <table class="table text-white">
+        <thead>
+        <tr>
+          <th>ID</th>
+          <th>Title</th>
+          <th>Author</th>
+          <th>Description</th>
+          <th>Publish date</th>
+          <th>ISBN</th>
+          <th>Language</th>
+          <th>Pages</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="book : ${books}">
+          <td th:text="${book.id}"></td>
+          <td th:text="${book.title}"></td>
+          <td th:text="${book.author}"></td>
+          <td th:text="${book.description}"></td>
+          <td th:text="${book.publish_date}"></td>
+          <td th:text="${book.isbn}"></td>
+          <td th:text="${book.language}"></td>
+          <td th:text="${book.pages}"></td>
+          <td>
+            <form th:action="@{/administrator/book/delete}" method="post">
+              <input type="hidden" name="id" th:value="${book.id}"/>
+              <button type="submit">Remove</button>
+            </form>
+          </td>
+        </tr>
+        </tbody>
+      </table>
     </div>
-  </div>
   </div>
   <footer th:replace="/fragments/commons::footer"></footer>
 </body>

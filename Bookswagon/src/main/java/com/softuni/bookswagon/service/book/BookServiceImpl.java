@@ -1,6 +1,7 @@
 package com.softuni.bookswagon.service.book;
 
 import com.softuni.bookswagon.model.dto.AddNewBookEntityDto;
+import com.softuni.bookswagon.model.dto.BookInfoForAdminDTO;
 import com.softuni.bookswagon.model.dto.BookSummaryDTO;
 import com.softuni.bookswagon.model.dto.FullBookInfoDTO;
 import com.softuni.bookswagon.model.entity.BookEntity;
@@ -57,5 +58,22 @@ public class BookServiceImpl implements BookService {
         modelMapper.map(book.get(), fullBookInfoDTO);
 
         return fullBookInfoDTO;
+    }
+
+    @Override
+    public List<BookInfoForAdminDTO> findAllBooksAndMapForAdminPanel() {
+        return this.bookRepository.findAll()
+                .stream()
+                .map(bookEntity -> {
+                    BookInfoForAdminDTO bookInfoForAdminDTO = new BookInfoForAdminDTO();
+                    modelMapper.map(bookEntity, bookInfoForAdminDTO);
+                    return bookInfoForAdminDTO;
+                })
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.bookRepository.deleteById(id);
     }
 }

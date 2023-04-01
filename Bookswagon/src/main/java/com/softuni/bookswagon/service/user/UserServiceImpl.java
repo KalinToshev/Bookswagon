@@ -1,6 +1,7 @@
 package com.softuni.bookswagon.service.user;
 
 import com.softuni.bookswagon.model.dto.RegisterUserEntityDTO;
+import com.softuni.bookswagon.model.dto.UserInfoForAdminDTO;
 import com.softuni.bookswagon.model.dto.UserProfileDetailsDTO;
 import com.softuni.bookswagon.model.entity.RoleEntity;
 import com.softuni.bookswagon.model.entity.UserEntity;
@@ -12,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -62,5 +66,19 @@ public class UserServiceImpl implements UserService {
         modelMapper.map(userEntity, userProfileDetailsDTO);
 
         return userProfileDetailsDTO;
+    }
+
+    @Override
+    public List<UserInfoForAdminDTO> findAllUsersAndMapForAdminPanel() {
+        return this.userRepository.findAll().stream().map(userEntity -> {
+            UserInfoForAdminDTO userInfoForAdminDTO = new UserInfoForAdminDTO();
+            modelMapper.map(userEntity, userInfoForAdminDTO);
+            return userInfoForAdminDTO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        this.userRepository.deleteById(id);
     }
 }
