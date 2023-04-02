@@ -11,15 +11,15 @@
   <div class="container pt-3 pb-3 min-vh-100 text-white" th:object="${fullBookInfoDTO}">
     <h1 class="text-center">Book Info.</h1>
     <hr class="my-3 bg-white w-100">
-    <div id="book-details" class="d-flex justify-content-center align-items-center flex-column">
-      <img th:src="*{bookImageUrl}" alt="" width="250" height="250">
-      <h3 th:text="*{title}">Title</h3>
-      <h4 th:text="*{author}">Author</h4>
-      <p>Description: <span th:text="*{description}"></span></p>
-      <p>ISBN: <span th:text="*{isbn}"></span></p>
-      <p>Language: <span th:text="*{language}"></span></p>
-      <p>Pages count: <span th:text="*{pages}"></span></p>
-      <p>Publish date: <span th:text="*{publish_date}"></span></p>
+    <div id="book-details" class="d-flex justify-content-evenly align-items-center flex-column min-vh-100 text-center">
+      <img th:src="*{bookImageUrl}" alt="" class="rounded-circle" width="250" height="250">
+      <h3><span class="text-decoration-underline text-uppercase">Title:</span> <span th:text="*{title}"></span></h3>
+      <h4><span class="text-decoration-underline text-uppercase">Author:</span> <span th:text="*{author}"></span></h4>
+      <p><span class="fw-bold text-decoration-underline text-uppercase">Description:</span> <span th:text="*{description}"></span></p>
+      <p><span class="fw-bold text-decoration-underline text-uppercase">ISBN:</span> <span th:text="*{isbn}"></span></p>
+      <p><span class="fw-bold text-decoration-underline text-uppercase">Language:</span> <span th:text="*{language}"></span></p>
+      <p><span class="fw-bold text-decoration-underline text-uppercase">Pages count:</span> <span th:text="*{pages}"></span></p>
+      <p><span class="fw-bold text-decoration-underline text-uppercase">Publish date:</span> <span th:text="*{publish_date}"></span></p>
     </div>
   </div>
   <footer th:replace="/fragments/commons::footer"></footer>
