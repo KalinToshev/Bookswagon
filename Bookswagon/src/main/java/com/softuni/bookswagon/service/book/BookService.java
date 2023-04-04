@@ -9,9 +9,13 @@ public interface BookService {
 
     List<BookSummaryDTO> getAllBooksSummary();
 
+    List<BookSummaryDTO> getAllSavedBooksOfUser(String username);
+
     FullBookInfoDTO findFullBookInfoByBookId(Long id);
 
     List<BookInfoForAdminDTO> findAllBooksAndMapForAdminPanel();
 
     void deleteById(Long id);
+
+    void addBookToUserRepo(Long bookId, String username);
 }

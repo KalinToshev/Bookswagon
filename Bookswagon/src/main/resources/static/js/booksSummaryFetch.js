@@ -6,7 +6,7 @@ fetch('http://localhost:8000/api/books')
         data.forEach(book => {
             const bookBox = document.createElement('div');
             bookBox.className = 'card text-dark m-2 p-0 rounded';
-            bookBox.style = 'width: 18rem;';
+            bookBox.style.width = '18rem';
 
             const img = document.createElement('img');
             img.className = 'card-img-top';
@@ -40,11 +40,26 @@ fetch('http://localhost:8000/api/books')
             detailsBtn.textContent = 'More details';
             cardBody.appendChild(detailsBtn);
 
-            const addBtn = document.createElement('a');
+            const addForm = document.createElement('form');
+            addForm.setAttribute('th:action', '@{/}');
+            addForm.setAttribute('method', 'post');
+            const hiddenInputField = document.createElement('input');
+            const csrfToken = document.querySelector('meta[name="_csrf"]').getAttribute('content');
+            hiddenInputField.setAttribute('type', 'hidden');
+            hiddenInputField.setAttribute('name', '_csrf');
+            hiddenInputField.setAttribute('value', csrfToken);
+            const bookIdInputField = document.createElement('input');
+            bookIdInputField.setAttribute('type', 'hidden');
+            bookIdInputField.setAttribute('name', 'bookId');
+            bookIdInputField.setAttribute('value', bookId);
+            const addBtn = document.createElement('input');
+            addBtn.type = 'submit';
             addBtn.className = 'btn btn-warning mt-2 mb-2 w-100 text-uppercase fw-bold shadow border border-dark text-white';
-            addBtn.href = '#';
-            addBtn.textContent = 'Add to your book repo';
-            cardBody.appendChild(addBtn);
+            addBtn.value = 'Add to your book repo';
+            addForm.appendChild(hiddenInputField);
+            addForm.appendChild(bookIdInputField);
+            addForm.appendChild(addBtn);
+            cardBody.appendChild(addForm);
 
             bookList.appendChild(bookBox);
         });

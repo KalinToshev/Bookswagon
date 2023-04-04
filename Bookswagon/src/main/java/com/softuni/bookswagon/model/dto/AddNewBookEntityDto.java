@@ -1,5 +1,7 @@
 package com.softuni.bookswagon.model.dto;
 
+import com.softuni.bookswagon.validation.annotation.UniqueBookTitle;
+import com.softuni.bookswagon.validation.annotation.UniqueBookISBN;
 import jakarta.validation.constraints.*;
 import lombok.*;
 import org.hibernate.validator.constraints.URL;
@@ -15,6 +17,7 @@ import static com.softuni.bookswagon.util.BookValidationMessages.*;
 public class AddNewBookEntityDto {
     @Size(message = TITLE_SIZE, min = 2, max = 100)
     @NotBlank(message = TITLE_NOT_BLANK)
+    @UniqueBookTitle
     private String title;
 
     @Size(message = AUTHOR_SIZE, min = 2, max = 100)
@@ -31,6 +34,7 @@ public class AddNewBookEntityDto {
 
     @Size(message = ISBN_SIZE, min = 10, max = 13)
     @NotBlank(message = ISBN_NOT_BLANK)
+    @UniqueBookISBN
     private String isbn;
 
     @Size(message = LANGUAGE_SIZE, min = 3, max = 30)

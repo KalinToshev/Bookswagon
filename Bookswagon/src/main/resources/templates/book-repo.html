@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+    <th:block sec:authorize="isAnonymous()">
+        <nav th:replace="/fragments/commons::nav#guest-nav"></nav>
+    </th:block>
+    <th:block sec:authorize="isAuthenticated()">
+        <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
+    </th:block>
+    <div class="container text-white d-flex justify-content-center flex-column pt-3 pb-3 min-vh-100 text-center">
+        <h1>Your saved books.</h1>
+        <hr class="my-3 bg-white w-100">
+        <div class="d-flex justify-content-center flex-wrap">
+            <div class="card text-dark m-2 p-0 rounded" style="width: 18rem;" th:each="book: ${books}" th:object="${book}">
+                <img th:src="*{bookImageUrl}" alt="Card image cap" class="card-img-top" height="200">
+                <div class="card-body d-flex flex-column justify-content-between text-center">
+                    <h5 class="card-title" th:text="*{title}"></h5>
+                    <hr class="my-3 bg-dark w-100">
+                    <p th:with="shortDesc=*{description}" th:text="${#strings.substring(shortDesc, 0 , 90)} + '...'"></p>
+                    <a class="btn btn-warning mt-2 mb-2 w-100 text-uppercase fw-bold shadow border border-dark text-white" th:href="@{/books/details/{id}(id = *{id})}">More details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

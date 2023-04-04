@@ -37,7 +37,15 @@ public class UserEntity extends BaseEntity {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<RoleEntity> roles = new LinkedHashSet<>();
 
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
+    @JoinTable(name = "users_books",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "book_id"))
+    private Set<BookEntity> readBooks = new LinkedHashSet<>();
+
     public void addRole(RoleEntity role) {
         this.roles.add(role);
     }
+
+    public void addBook(BookEntity book) {readBooks.add(book);}
 }

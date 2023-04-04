@@ -21,8 +21,6 @@ public class UserController {
 
     @GetMapping("/user/profile")
     public String getUserProfileDetails(Principal principal, Model model) {
-        String test = principal.getName();
-
         var userEntity = this.userService.getUserEntityByUsername(principal.getName());
 
         UserProfileDetailsDTO userProfileDetailsDTO = new UserProfileDetailsDTO();

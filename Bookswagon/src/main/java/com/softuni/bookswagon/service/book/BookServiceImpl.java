@@ -5,8 +5,10 @@ import com.softuni.bookswagon.model.dto.BookInfoForAdminDTO;
 import com.softuni.bookswagon.model.dto.BookSummaryDTO;
 import com.softuni.bookswagon.model.dto.FullBookInfoDTO;
 import com.softuni.bookswagon.model.entity.BookEntity;
+import com.softuni.bookswagon.model.entity.UserEntity;
 import com.softuni.bookswagon.repository.BookRepository;
-import org.hibernate.ObjectNotFoundException;
+import com.softuni.bookswagon.service.user.UserService;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,14 @@ import java.util.stream.Collectors;
 public class BookServiceImpl implements BookService {
     private final BookRepository bookRepository;
 
+    private final UserService userService;
+
     private final ModelMapper modelMapper;
 
     @Autowired
-    public BookServiceImpl(BookRepository bookRepository, ModelMapper modelMapper) {
+    public BookServiceImpl(BookRepository bookRepository, UserService userService, ModelMapper modelMapper) {
         this.bookRepository = bookRepository;
+        this.userService = userService;
         this.modelMapper = modelMapper;
     }
 
@@ -45,6 +50,17 @@ public class BookServiceImpl implements BookService {
                     return bookSummaryDTO;
                 })
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<BookSummaryDTO> getAllSavedBooksOfUser(String username) {
+        UserEntity user = this.userService.getUserEntityByUsername(username);
+
+        return user.getReadBooks().stream().map(book -> {
+            BookSummaryDTO bookSummaryDTO = new BookSummaryDTO();
+            modelMapper.map(book, bookSummaryDTO);
+            return bookSummaryDTO;
+        }).collect(Collectors.toList());
     }
 
     @Override
@@ -75,5 +91,15 @@ public class BookServiceImpl implements BookService {
     @Override
     public void deleteById(Long id) {
         this.bookRepository.deleteById(id);
+    }
+
+    @Transactional
+    @Override
+    public void addBookToUserRepo(Long bookId, String username) {
+        BookEntity book = this.bookRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException("Book with id " + bookId + " was not found!"));
+
+        UserEntity userEntity = this.userService.getUserEntityByUsername(username);
+
+        userEntity.addBook(book);
     }
 }

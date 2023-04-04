@@ -1,17 +1,18 @@
 package com.softuni.bookswagon.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.Hibernate;
 import org.hibernate.validator.constraints.URL;
 
 import java.time.LocalDate;
+import java.util.LinkedHashSet;
+import java.util.Objects;
+import java.util.Set;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -43,4 +44,20 @@ public class BookEntity extends BaseEntity {
 
     @Column(name = "book_image_url", nullable = false)
     private String bookImageUrl;
+
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "readBooks", cascade = CascadeType.MERGE)
+    private Set<UserEntity> users = new LinkedHashSet<>();
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || Hibernate.getClass(this) != Hibernate.getClass(o)) return false;
+        BookEntity book = (BookEntity) o;
+        return getId() != null && Objects.equals(getId(), book.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return getClass().hashCode();
+    }
 }
