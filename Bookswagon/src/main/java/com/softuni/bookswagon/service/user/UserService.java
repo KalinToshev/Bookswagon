@@ -5,6 +5,7 @@ import com.softuni.bookswagon.model.dto.UserInfoForAdminDTO;
 import com.softuni.bookswagon.model.dto.UserProfileDetailsDTO;
 import com.softuni.bookswagon.model.entity.UserEntity;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface UserService {

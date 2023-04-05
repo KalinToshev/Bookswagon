@@ -8,6 +8,7 @@ import com.softuni.bookswagon.model.entity.UserEntity;
 import com.softuni.bookswagon.model.enums.RolesEnum;
 import com.softuni.bookswagon.repository.RoleRepository;
 import com.softuni.bookswagon.repository.UserRepository;
+import com.softuni.bookswagon.service.book.BookService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

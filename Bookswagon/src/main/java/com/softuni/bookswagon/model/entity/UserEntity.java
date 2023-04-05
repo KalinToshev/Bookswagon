@@ -48,4 +48,6 @@ public class UserEntity extends BaseEntity {
     }
 
     public void addBook(BookEntity book) {readBooks.add(book);}
+
+    public void removeBook(BookEntity book) {readBooks.remove(book);}
 }

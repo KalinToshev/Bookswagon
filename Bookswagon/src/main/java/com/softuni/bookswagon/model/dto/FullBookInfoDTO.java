@@ -12,6 +12,8 @@ import java.time.LocalDate;
 @Getter
 @Setter
 public class FullBookInfoDTO {
+    private Long id;
+
     private String title;
 
     private String author;

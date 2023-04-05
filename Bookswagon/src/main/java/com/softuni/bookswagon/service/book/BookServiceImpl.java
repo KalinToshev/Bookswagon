@@ -88,8 +88,15 @@ public class BookServiceImpl implements BookService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     @Override
-    public void deleteById(Long id) {
+    public void deleteBookById(Long id) {
+        BookEntity book = findBookById(id);
+
+        for (UserEntity user : book.getUsers()) {
+            user.getReadBooks().remove(book);
+        }
+
         this.bookRepository.deleteById(id);
     }
 
@@ -101,5 +108,10 @@ public class BookServiceImpl implements BookService {
         UserEntity userEntity = this.userService.getUserEntityByUsername(username);
 
         userEntity.addBook(book);
+    }
+
+    @Override
+    public BookEntity findBookById(Long id) {
+        return this.bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("A book with id " + id + " was not found!"));
     }
 }

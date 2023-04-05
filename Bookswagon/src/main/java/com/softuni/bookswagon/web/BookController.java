@@ -1,9 +1,8 @@
 package com.softuni.bookswagon.web;
 
-import com.softuni.bookswagon.model.dto.AddNewBookEntityDto;
-import com.softuni.bookswagon.model.dto.BookSummaryDTO;
-import com.softuni.bookswagon.model.dto.FullBookInfoDTO;
+import com.softuni.bookswagon.model.dto.*;
 import com.softuni.bookswagon.service.book.BookService;
+import com.softuni.bookswagon.service.comment.CommentService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,9 +18,12 @@ import java.util.List;
 public class BookController {
     private final BookService bookService;
 
+    private final CommentService commentService;
+
     @Autowired
-    public BookController(BookService bookService) {
+    public BookController(BookService bookService, CommentService commentService) {
         this.bookService = bookService;
+        this.commentService = commentService;
     }
 
     @GetMapping("/books/add")
@@ -48,7 +50,11 @@ public class BookController {
     public String getFullBookDetails(@PathVariable("id") Long id, Model model) {
         FullBookInfoDTO fullBookInfoDTO = this.bookService.findFullBookInfoByBookId(id);
 
+        List<ShowCommentDTO> comments = this.commentService.getAllCommentsForBook(id);
+
         model.addAttribute("fullBookInfoDTO", fullBookInfoDTO);
+
+        model.addAttribute("comments", comments);
 
         return "book";
     }
@@ -67,6 +73,19 @@ public class BookController {
         this.bookService.addBookToUserRepo(bookId, principal.getName());
 
         return "redirect:/";
+    }
+
+    @PostMapping("/books/details/comment/add")
+    private String addNewComment(@Valid AddCommentDTO addCommentDTO, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+        if(bindingResult.hasErrors()){
+            redirectAttributes.addFlashAttribute("addCommentDTO", addCommentDTO);
+            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.addCommentDTO", bindingResult);
+            return "redirect:/books/details/" + addCommentDTO.getBookId();
+        }
+
+        this.commentService.addComment(addCommentDTO);
+
+        return "redirect:/books/details/" + addCommentDTO.getBookId();
     }
 
     @ModelAttribute
