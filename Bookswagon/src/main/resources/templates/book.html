@@ -32,7 +32,9 @@
                   <form th:action="@{/books/details/comment/add}" th:method="post" th:object="${addCommentDTO}">
                     <input type="hidden" name="authorUsername" th:value="${#authentication.getName()}">
                     <input type="hidden" name="bookId" th:value="${fullBookInfoDTO.id}">
-                    <input type="text" id="content" name="content" class="form-control mb-2" placeholder="Type comment..."/>
+                    <input type="text" id="content" name="content" class="form-control mb-2" placeholder="Type comment..." th:field="*{content}" th:errorclass="bg-danger"/>
+                    <small th:if="${#fields.hasErrors('content')}" th:errors="*{content}" class="text-danger"></small>
+                    <p id="contentError" class="text-danger"></p>
                     <input type="submit" value="POST COMMENT" class="btn btn-primary w-100">
                   </form>
                 </div>
@@ -92,5 +94,6 @@
     </div>
   </div>
   <footer th:replace="/fragments/commons::footer"></footer>
+  <script src="/js/addCommentFormValidation.js"></script>
 </body>
 </html>

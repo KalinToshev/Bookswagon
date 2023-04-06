@@ -20,7 +20,7 @@ public class ScheduledEmailService {
         this.emailSenderService = emailSenderService;
     }
 
-    @Scheduled(cron = "0 30 17 * * *") // runs every day at 5:30 PM
+    @Scheduled(cron = "0 30 17 * * *") // runs every day at 5:30 PMf
     public void sendReminderEmails() {
         List<UserEntity> users = userRepository.findAll();
         for (UserEntity user : users) {

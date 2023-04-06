@@ -16,6 +16,7 @@ public class SecurityConfiguration {
         http.authorizeHttpRequests()
                 .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
                 .requestMatchers("/users/register", "/users/login", "/", "/api/books").permitAll()
+                .requestMatchers("/administrator/panel", "/administrator/user/delete", "/administrator/book/delete").hasRole("ADMINISTRATOR")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
