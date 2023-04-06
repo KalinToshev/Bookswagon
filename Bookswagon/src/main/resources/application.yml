@@ -16,6 +16,17 @@ spring:
     password: '1234'
     username: 'root'
     url: jdbc:mysql://localhost:3306/bookswagon_db?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+  mail:
+    properties:
+      mail:
+        smtp:
+          starttls:
+            enable: 'true'
+          auth: 'true'
+    host: smtp.gmail.com
+    username: bookswagon.app@gmail.com
+    password: jxskxhmcytmiqzsu
+    port: 587
 logging:
   level:
     org:

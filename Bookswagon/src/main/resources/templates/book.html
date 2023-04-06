@@ -21,31 +21,72 @@
       <p><span class="fw-bold text-decoration-underline text-uppercase">Pages count:</span> <span th:text="*{pages}"></span></p>
       <p><span class="fw-bold text-decoration-underline text-uppercase">Publish date:</span> <span th:text="*{publish_date}"></span></p>
     </div>
-    <h1 class="text-center">Comments.</h1>
-    <hr class="my-3 bg-white w-100">
-    <div class="row d-flex justify-content-center">
-        <div class="card shadow-0 border" style="background-color: #f0f2f5;">
-          <div class="card-body p-4">
-            <div class="form-outline mb-4">
-              <form th:action="@{/books/details/comment/add}" th:method="post" th:object="${addCommentDTO}">
-                <input type="hidden" name="authorUsername" th:value="${#authentication.getName()}">
-                <input type="hidden" name="bookId" th:value="${fullBookInfoDTO.id}">
-                <input type="text" id="content" name="content" class="form-control mb-2" placeholder="Type comment..."/>
-                <input type="submit" value="POST COMMENT" class="btn btn-primary w-100">
-              </form>
+    <div class="row">
+        <div class="col m-2">
+        <h1 class="text-center">Comments.</h1>
+        <hr class="my-3 bg-white w-100">
+        <div class="row d-flex justify-content-center">
+            <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+              <div class="card-body p-4">
+                <div class="form-outline mb-4">
+                  <form th:action="@{/books/details/comment/add}" th:method="post" th:object="${addCommentDTO}">
+                    <input type="hidden" name="authorUsername" th:value="${#authentication.getName()}">
+                    <input type="hidden" name="bookId" th:value="${fullBookInfoDTO.id}">
+                    <input type="text" id="content" name="content" class="form-control mb-2" placeholder="Type comment..."/>
+                    <input type="submit" value="POST COMMENT" class="btn btn-primary w-100">
+                  </form>
+                </div>
+
+                <div class="card mb-4 text-dark" th:each="comment : ${comments}">
+                  <div class="card-body">
+                    <p th:text="${comment.content}"></p>
+
+                    <div class="d-flex justify-content-between">
+                      <div class="d-flex flex-row align-items-center">
+                        <p class="small mb-0 ms-2">- <span th:text="${comment.authorUsername}"></span></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
             </div>
+          </div>
+        </div>
+      </div>
+      <div class="col m-2">
+        <h1 class="text-center">Rates.</h1>
+        <hr class="my-3 bg-white w-100">
+        <div class="row d-flex justify-content-center">
+          <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+            <div class="card-body p-4">
+              <div class="form-outline mb-4">
+                <form th:action="@{/books/details/rate/add}" th:method="post" th:object="${addRateDTO}">
+                  <input type="hidden" name="authorUsername" th:value="${#authentication.getName()}">
+                  <input type="hidden" name="bookId" th:value="${fullBookInfoDTO.id}">
+                  <select name="rate" id="rate" class="form-control mb-2">
+                    <option value="" disabled>Select a rate</option>
+                    <option value="ONE_STAR" selected>One star</option>
+                    <option value="TWO_STAR">Two stars</option>
+                    <option value="THREE_STAR">Three stars</option>
+                    <option value="FOUR_STAR">Four stars</option>
+                    <option value="FIVE_STAR">Five stars</option>
+                  </select>
+                  <input type="submit" value="ADD RATE" class="btn btn-primary w-100">
+                </form>
+              </div>
 
-            <div class="card mb-4 text-dark" th:each="comment : ${comments}">
-              <div class="card-body">
-                <p th:text="${comment.content}">Type your note, and hit enter to add it</p>
+              <div class="card mb-4 text-dark" th:each="rate : ${rates}">
+                <div class="card-body">
+                  <p th:text="${rate.rateEnum.name()}"></p>
 
-                <div class="d-flex justify-content-between">
-                  <div class="d-flex flex-row align-items-center">
-                    <p class="small mb-0 ms-2">- <span th:text="${comment.authorUsername}"></span></p>
+                  <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-row align-items-center">
+                      <p class="small mb-0 ms-2">- <span th:text="${rate.authorUsername}"></span></p>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
+          </div>
         </div>
       </div>
     </div>
