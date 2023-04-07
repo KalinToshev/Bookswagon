@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head th:replace="/fragments/commons::head"></head>
+<body>
+  <th:block sec:authorize="isAnonymous()">
+    <nav th:replace="/fragments/commons::nav#guest-nav"></nav>
+  </th:block>
+  <th:block sec:authorize="isAuthenticated()">
+    <nav th:replace="/fragments/commons::nav#logged-nav"></nav>
+  </th:block>
+  <div class="container text-white d-flex justify-content-center flex-column pt-3 pb-3 min-vh-100">
+    <h1 class="text-uppercase fw-bold display-4 text-center">An error has occurred!</h1>
+    <hr class="my-3 bg-white w-100">
+    <p th:text="${errorMsg}" class="text-uppercase fw-bold display-4 text-center"></p>
+    <img src="/images/oops.gif" alt="Ooops!" class="img-fluid">
+    <a th:href="@{/}" class="btn btn-warning mt-2 mb-2 p-3 w-100 text-uppercase fw-bold shadow border border-dark text-white">GO TO HOME PAGE</a>
+  </div>
+  <footer th:replace="/fragments/commons::footer"></footer>
+</body>
+</html>

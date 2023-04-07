@@ -67,7 +67,7 @@ public class BookServiceImpl implements BookService {
     public FullBookInfoDTO findFullBookInfoByBookId(Long id) {
         Optional<BookEntity> book = this.bookRepository.findById(id);
 
-        if (book.isEmpty()) throw new IllegalArgumentException("Book with id " + id + " is not found!");
+        if (book.isEmpty()) throw new IllegalArgumentException("The book was not found!");
 
         FullBookInfoDTO fullBookInfoDTO = new FullBookInfoDTO();
 
@@ -103,7 +103,7 @@ public class BookServiceImpl implements BookService {
     @Transactional
     @Override
     public void addBookToUserRepo(Long bookId, String username) {
-        BookEntity book = this.bookRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException("Book with id " + bookId + " was not found!"));
+        BookEntity book = this.bookRepository.findById(bookId).orElseThrow(() -> new IllegalArgumentException("The book was not found!"));
 
         UserEntity userEntity = this.userService.getUserEntityByUsername(username);
 
@@ -112,6 +112,6 @@ public class BookServiceImpl implements BookService {
 
     @Override
     public BookEntity findBookById(Long id) {
-        return this.bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("A book with id " + id + " was not found!"));
+        return this.bookRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("The book was not found!"));
     }
 }

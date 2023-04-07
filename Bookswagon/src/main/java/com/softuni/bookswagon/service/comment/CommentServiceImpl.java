@@ -32,7 +32,7 @@ public class CommentServiceImpl implements CommentService {
 
         comment.setContent(addCommentDTO.getContent());
         comment.setAuthorUsername(addCommentDTO.getAuthorUsername());
-        comment.setBookEntity(this.bookRepository.findById(addCommentDTO.getBookId()).orElseThrow(() -> new IllegalArgumentException("Book with ID " + addCommentDTO.getBookId() + " is not found!")));
+        comment.setBookEntity(this.bookRepository.findById(addCommentDTO.getBookId()).orElseThrow(() -> new IllegalArgumentException("A book with the given ID was not found!")));
 
         this.commentRepository.save(comment);
     }
